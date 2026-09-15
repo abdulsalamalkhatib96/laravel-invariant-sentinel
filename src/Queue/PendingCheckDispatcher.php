@@ -23,6 +23,7 @@ final class PendingCheckDispatcher
         try {
             $this->bus->dispatch($job);
         } catch (Throwable $e) {
+            // Pending work is already durable; a scheduled drain can recover it.
             report($e);
         }
     }
