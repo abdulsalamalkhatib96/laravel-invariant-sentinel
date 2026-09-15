@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Invariant Sentinel</title>
+<style>
+body{font-family:ui-sans-serif,system-ui;margin:0;background:#0b1020;color:#e7eaf3}.wrap{max-width:1200px;margin:auto;padding:32px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}.card{background:#141b2d;border:1px solid #26324d;border-radius:14px;padding:18px}h1,h2{margin-top:0}table{width:100%;border-collapse:collapse;background:#141b2d;border-radius:14px;overflow:hidden;margin:14px 0 30px}th,td{text-align:left;padding:12px;border-bottom:1px solid #26324d;font-size:14px}.critical,.fail{color:#ff7676}.pass{color:#7ee2a8}.muted{color:#9ba8c7}.pill{padding:3px 8px;border:1px solid #42506d;border-radius:99px}
+</style></head><body><div class="wrap"><h1>Laravel Invariant Sentinel</h1><p class="muted">Continuous business-state verification</p>
+<div class="grid">@foreach(['pass','fail','deferred','unknown','error'] as $status)<div class="card"><div class="muted">{{ strtoupper($status) }}</div><h2 class="{{ $status }}">{{ $summary[$status] ?? 0 }}</h2></div>@endforeach</div>
+<h2 style="margin-top:32px">Open incidents</h2><table><thead><tr><th>Severity</th><th>Invariant</th><th>Subject</th><th>Status</th><th>Opened</th></tr></thead><tbody>@forelse($incidents as $i)<tr><td class="{{ $i->severity }}">{{ strtoupper($i->severity) }}</td><td>{{ $i->invariant_key }}</td><td>{{ class_basename($i->subject_type) }} #{{ $i->subject_id }}</td><td><span class="pill">{{ $i->status }}</span></td><td>{{ $i->opened_at }}</td></tr>@empty<tr><td colspan="5">No open incidents.</td></tr>@endforelse</tbody></table>
+<h2>Recent evaluations</h2><table><thead><tr><th>Status</th><th>Invariant</th><th>Subject</th><th>Duration</th><th>Time</th></tr></thead><tbody>@foreach($recent as $o)<tr><td class="{{ $o->status }}">{{ strtoupper($o->status) }}</td><td>{{ $o->invariant_key }}</td><td>{{ class_basename($o->subject_type) }} #{{ $o->subject_id }}</td><td>{{ $o->duration_ms }}ms</td><td>{{ $o->created_at }}</td></tr>@endforeach</tbody></table>
+</div></body></html>

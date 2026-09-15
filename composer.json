@@ -1,0 +1,52 @@
+{
+  "$schema": "https://getcomposer.org/schema.json",
+  "name": "evolvex/laravel-invariant-sentinel",
+  "description": "Continuous runtime verification engine for business invariants in Laravel applications.",
+  "type": "library",
+  "license": "MIT",
+  "keywords": ["laravel", "invariants", "correctness", "monitoring", "business-rules", "incidents"],
+  "require": {
+    "php": "^8.2",
+    "illuminate/bus": "^12.0|^13.0",
+    "illuminate/cache": "^12.0|^13.0",
+    "illuminate/console": "^12.0|^13.0",
+    "illuminate/contracts": "^12.0|^13.0",
+    "illuminate/database": "^12.0|^13.0",
+    "illuminate/events": "^12.0|^13.0",
+    "illuminate/filesystem": "^12.0|^13.0",
+    "illuminate/queue": "^12.0|^13.0",
+    "illuminate/routing": "^12.0|^13.0",
+    "illuminate/support": "^12.0|^13.0"
+  },
+  "require-dev": {
+    "laravel/framework": "^12.0|^13.0",
+    "orchestra/testbench": "^10.0|^11.0",
+    "phpunit/phpunit": "^11.5|^12.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Evolvex\\InvariantSentinel\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Evolvex\\InvariantSentinel\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Evolvex\\InvariantSentinel\\SentinelServiceProvider"
+      ],
+      "aliases": {
+        "Sentinel": "Evolvex\\InvariantSentinel\\Facades\\Sentinel"
+      }
+    }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "lint": "find src tests database config -name '*.php' -print0 | xargs -0 -n1 php -l"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
